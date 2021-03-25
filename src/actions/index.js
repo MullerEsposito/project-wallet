@@ -1,6 +1,18 @@
 export const LOGIN = 'LOGIN';
+export const CREATE_EXPENSE = 'CREATE_EXPENSE';
+export const DELETE_EXPENSE = 'DELETE_EXPENSE';
 
 export const loginCreator = (email) => ({
   type: LOGIN,
-  value: email,
+  email,
+});
+
+export const expenseCreator = (expense) => ({
+  type: CREATE_EXPENSE,
+  expense,
+});
+
+export const expenseDestroyer = (expense) => ({
+  type: DELETE_EXPENSE,
+  expense,
 });

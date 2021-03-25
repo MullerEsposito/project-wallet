@@ -1,0 +1,45 @@
+.container-table {
+  display: flex;
+}
+
+.container-table table {
+  flex: 1;
+  text-align: center;
+  background-color: #504d4d99;
+  font-size: 0.8em;
+}
+
+.container-table table th {
+  height: 40px;
+}
+
+.container-table table tbody {
+  background-color: black;
+}
+
+.container-table table tbody tr {
+  height: 60px;
+}
+
+.container-table table tbody tr td:last-child {
+  display: flex;
+  justify-content: space-evenly;
+  height: 60px;
+  align-items: center;
+}
+
+.container-table table button {
+  width: 35%;
+}
+
+.container-table .fa-edit,
+.container-table .fa-trash {
+  position: relative;
+}
+
+.container-table .fa-edit::before,
+.container-table .fa-trash::before {
+  position: absolute;
+  left: -7px;
+  bottom: -2px;
+}

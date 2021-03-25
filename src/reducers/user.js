@@ -4,11 +4,11 @@ const INITIAL_STATE = {
   email: '',
 };
 
-const userReducer = (state = INITIAL_STATE, { type, value }) => {
+const userReducer = (state = INITIAL_STATE, { type, email }) => {
   switch (type) {
   case LOGIN:
     console.log('LOGING...');
-    return { ...state, email: value };
+    return { ...state, email };
   default: return state;
   }
 };

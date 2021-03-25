@@ -156,8 +156,8 @@ describe('2 - Crie uma página para sua carteira com as seguintes característic
       userEvent.type(valueInput, '10');
       userEvent.selectOptions(currencyInput, 'USD');
       userEvent.selectOptions(methodInput, 'Cartão de crédito');
-      userEvent.selectOptions(tagInput, 'Lazer');
       userEvent.type(descriptionInput, 'Dez dólares');
+      userEvent.selectOptions(tagInput, 'Lazer');
       fireEvent.click(addButton);
       expect(mockedExchange).toBeCalledTimes(2);
   

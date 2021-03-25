@@ -1,0 +1,15 @@
+.container-wallet {
+  align-self: flex-start;
+  width: 100%;
+}
+
+.container-wallet header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container-wallet header img {
+  width: 20%;
+}
+
