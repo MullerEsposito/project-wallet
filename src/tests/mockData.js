@@ -222,13 +222,14 @@ export const initialStateHeader = {
   },
 };
 
-export const initialStateWithExpenses = {
+export const  initialStateWithExpenses = {
   user: {
     email: 'alguem@email.com',
   },
   wallet: {
     isFetching: false,
-    editor: false,
+    editMode: false,
+    expense: false,
     idToEdit: 0,
     currencyToExchange: 'BRL',
     currencies: [
@@ -251,7 +252,7 @@ export const initialStateWithExpenses = {
       {
         id: 0,
         value: '10',
-        currency: 'USD',
+        currency: 'ARS',
         method: 'Cartão de crédito',
         tag: 'Lazer',
         description: 'Dez dólares',

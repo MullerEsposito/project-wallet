@@ -21,7 +21,11 @@ class Login extends React.Component {
   }
 
   handleOnChange({ target: { name, value } }) {
+    const inputs = Array.from(document.querySelectorAll('input'));
+    const loginButton = document.querySelector('button');
     this.setState({ [name]: value });
+
+    loginButton.disabled = this.validateFields(inputs);
   }
 
   handleOnSubmit(e) {
@@ -31,6 +35,23 @@ class Login extends React.Component {
 
     createLogin(email);
     history.push('/carteira');
+  }
+
+  validateFields(fields) {
+    const minLengthPassword = 6;
+    const regexEmail = /^[A-Za-z0-9]+@[A-Za-z0-9]+(\.[A-Za-z]{3}|\.[A-Za-z]{3}\.[A-Za-z]{2})$/;
+
+    return fields.reduce((validation, { name, value }) => {
+      switch (name) {
+      case 'email':
+        if (value.match(regexEmail)) return validation;
+        return true;
+      case 'password':
+        if (value.length >= minLengthPassword) return validation;
+        return true;
+      default: return true;
+      }
+    }, false);
   }
 
   render() {
@@ -47,6 +68,7 @@ class Login extends React.Component {
             data-testid="email-input"
             className="form-control"
             type="email"
+            required
           />
           <input
             name="password"
@@ -55,8 +77,9 @@ class Login extends React.Component {
             data-testid="password-input"
             className="form-control"
             type="password"
+            required
           />
-          <button className="btn btn-success" type="submit">Entrar</button>
+          <button disabled className="btn btn-success" type="submit">Entrar</button>
         </form>
       </div>
     );

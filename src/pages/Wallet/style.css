@@ -13,3 +13,7 @@
   width: 20%;
 }
 
+.container-wallet header > p:last-child {
+  margin-right: 20px;
+}
+

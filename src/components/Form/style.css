@@ -8,6 +8,10 @@
   color: black;
 }
 
+.editMode {
+  background-color: rgba(110, 219, 110, 0.788);
+}
+
 .container-form label {
   display: flex;
   align-items: center;
