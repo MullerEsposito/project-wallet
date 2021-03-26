@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { expenseCreator, expenseEditor, expenseUpdater } from '../../actions';
-import fetchCurrencies from '../../services/fetchCurrency';
+import {
+  expenseCreator, expenseEditor, expenseUpdater, fetchCurrenciesCreator,
+} from '../../actions';
+import apiFetchCurrencies from '../../services/fetchCurrencies';
 
 import './style.css';
 
@@ -27,7 +29,8 @@ class Form extends Component {
   }
 
   componentDidMount() {
-    this.fetchCurrencies();
+    const { fetchCurrencies } = this.props;
+    fetchCurrencies();
   }
 
   componentDidUpdate() {
@@ -44,13 +47,6 @@ class Form extends Component {
     }
   }
 
-  async fetchCurrencies() {
-    const currencies = await fetchCurrencies('https://economia.awesomeapi.com.br/json/all');
-    delete currencies.USDT;
-    this.setState({ currencies });
-    return currencies;
-  }
-
   async handleOnSubmit(e) {
     e.preventDefault();
     const { target: { name } } = e;
@@ -58,7 +54,7 @@ class Form extends Component {
     const { createExpense, updateExpense } = this.props;
 
     if (name === 'create') {
-      const exchangeRates = await this.fetchCurrencies();
+      const exchangeRates = await apiFetchCurrencies();
       const newExpense = { ...expense, exchangeRates };
 
       createExpense(newExpense);
@@ -94,7 +90,8 @@ class Form extends Component {
   }
 
   renderCurrencySelect() {
-    const { currencies, expense: { currency } } = this.state;
+    const { currencies } = this.props;
+    const { expense: { currency } } = this.state;
     return (
       <label htmlFor="currency">
         Moeda:
@@ -105,13 +102,13 @@ class Form extends Component {
           data-testid="currency-input"
           id="currency"
         >
-          { Object.entries(currencies).map((cur) => (
+          { currencies.map((code) => (
             <option
-              key={ cur[1].code }
-              data-testid={ cur[1].code }
-              value={ cur[1].code }
+              key={ code }
+              data-testid={ code }
+              value={ code }
             >
-              { cur[1].code }
+              { code }
             </option>
           ))}
         </select>
@@ -229,19 +226,23 @@ Form.propTypes = {
   createExpense: PropTypes.func.isRequired,
   editExpense: PropTypes.func.isRequired,
   updateExpense: PropTypes.func.isRequired,
+  fetchCurrencies: PropTypes.func.isRequired,
   editMode: PropTypes.bool.isRequired,
   expense: PropTypes.oneOfType([PropTypes.shape(Object), PropTypes.bool]).isRequired,
+  currencies: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 const mapStateToProps = ({ wallet }) => ({
   editMode: wallet.editMode,
   expense: wallet.expense,
+  currencies: wallet.currencies,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   createExpense: (expense) => dispatch(expenseCreator(expense)),
   editExpense: (expense, editMode) => dispatch(expenseEditor(expense, editMode)),
   updateExpense: (expense) => dispatch(expenseUpdater(expense)),
+  fetchCurrencies: () => dispatch(fetchCurrenciesCreator()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);

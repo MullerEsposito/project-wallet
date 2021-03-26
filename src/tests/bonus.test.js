@@ -8,6 +8,13 @@ import { renderWithRouterAndStore } from './testConfig'
 
 afterEach(() => jest.clearAllMocks());
 
+// const apiResponse = Promise.resolve({
+//   json: () => Promise.resolve(mockData),
+//   ok: true,
+// });
+// jest.spyOn(global, 'fetch').mockImplementation(() => apiResponse);
+
+
 describe('7 - Crie um botão para editar uma despesa da tabela contendo as seguintes características:', () => {
     const initial = initialStateWithExpenses;
   

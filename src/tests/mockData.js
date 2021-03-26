@@ -201,6 +201,8 @@ export const initialStateHeader = {
     email: 'alguem@email.com',
   },
   wallet: {
+    editMode: false,
+    expense: false,
     currencies: [
       'USD',
       'USDT',
@@ -252,7 +254,7 @@ export const  initialStateWithExpenses = {
       {
         id: 0,
         value: '10',
-        currency: 'ARS',
+        currency: 'USD',
         method: 'Cartão de crédito',
         tag: 'Lazer',
         description: 'Dez dólares',
